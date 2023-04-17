@@ -49,4 +49,12 @@ class TaskController extends AbstractController
 
         return $this->redirectToRoute('main');
     }
+
+    #[Route('toggle/{id}', name: 'task_toggle', methods: ['POST'])]
+    public function toggle(int $id, TaskService $taskService): Response
+    {
+        $taskService->toggle($id);
+
+        return $this->redirectToRoute('main');
+    }
 }

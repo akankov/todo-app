@@ -34,4 +34,17 @@ class TaskService
             $this->taskRepository->remove($task, true);
         }
     }
+
+    public function toggle(int $id): void
+    {
+        $task = $this->taskRepository->find($id);
+
+        if (!$task) {
+            return;
+        }
+
+        $task->setIsFinished(!$task->isFinished());
+
+        $this->taskRepository->save($task, true);
+    }
 }
