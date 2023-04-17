@@ -29,32 +29,25 @@
                             {% endfor %}
 
                             <ul class="list-group mb-0">
-                                <li
-                                        class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <input
-                                                class="form-check-input me-2" type="checkbox" value=""
-                                                aria-label="..."
-                                        />
-                                        task 1
-                                    </div>
+                                {% for task in tasks %}
+                                    <li
+                                            class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                                        <div class="d-flex align-items-center">
+                                            <input
+                                                    class="form-check-input me-2" type="checkbox" value=""
+                                                    aria-label="..."
+                                                    {{ task.isFinished ? 'checked' : '' }}
+                                            />
+                                            {% if task.isFinished %}
+                                                <s>{{ task.content }}</s>
+                                            {% else %}
+                                                {{ task.content }}
+                                            {% endif %}
+                                        </div>
 
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </li>
-                                <li
-                                        class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <input
-                                                class="form-check-input me-2" type="checkbox" value=""
-                                                aria-label="..."
-                                                checked
-                                        />
-                                        <s>task 2</s>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </li>
-
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </li>
+                                {% endfor %}
                             </ul>
 
                         </div>

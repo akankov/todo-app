@@ -13,10 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class TaskController extends AbstractController
 {
     #[Route('/', name: 'main')]
-    public function index(): Response
+    public function index(TaskService $taskService): Response
     {
+        $tasks = $taskService->list();
+
         return $this->render('task/index.html.twig', [
-            'controller_name' => 'TaskController',
+            'tasks' => $tasks,
         ]);
     }
 

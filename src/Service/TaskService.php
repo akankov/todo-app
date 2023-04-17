@@ -20,4 +20,9 @@ class TaskService
 
         $this->taskRepository->save($task, true);
     }
+
+    public function list(): array
+    {
+        return $this->taskRepository->findBy([], ['id' => 'desc']);
+    }
 }
