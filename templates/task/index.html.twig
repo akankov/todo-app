@@ -45,7 +45,9 @@
                                             {% endif %}
                                         </div>
 
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <form action="{{ path('task_delete', {'id': task.id}) }}" method="post">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
                                     </li>
                                 {% endfor %}
                             </ul>

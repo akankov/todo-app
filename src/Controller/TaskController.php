@@ -41,4 +41,12 @@ class TaskController extends AbstractController
 
         return $this->redirectToRoute('main');
     }
+
+    #[Route('delete/{id}', name: 'task_delete', methods: ['POST'])]
+    public function delete(int $id, TaskService $taskService): Response
+    {
+        $taskService->delete($id);
+
+        return $this->redirectToRoute('main');
+    }
 }

@@ -25,4 +25,13 @@ class TaskService
     {
         return $this->taskRepository->findBy([], ['id' => 'desc']);
     }
+
+    public function delete(int $id): void
+    {
+        $task = $this->taskRepository->find($id);
+
+        if ($task) {
+            $this->taskRepository->remove($task, true);
+        }
+    }
 }
