@@ -2,17 +2,41 @@
 
 namespace App\Controller;
 
+use App\DTO\CreateTaskDTO;
+use App\Form\CreateTaskType;
+use App\Service\TaskService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TaskController extends AbstractController
 {
-    #[Route('/task', name: 'app_task')]
+    #[Route('/', name: 'main')]
     public function index(): Response
     {
         return $this->render('task/index.html.twig', [
             'controller_name' => 'TaskController',
         ]);
+    }
+
+    #[Route('create', name: 'task_create', methods: ['POST'])]
+    public function create(Request $request, TaskService $taskService): Response
+    {
+        $form = $this->createForm(CreateTaskType::class);
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            $this->addFlash('notice', 'Task was not created');
+
+            return $this->redirectToRoute('main');
+        }
+
+        /** @var CreateTaskDTO $data */
+        $data = $form->getData();
+
+        $taskService->create($data);
+
+        return $this->redirectToRoute('main');
     }
 }
